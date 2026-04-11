@@ -1,0 +1,96 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# =========================
+# Virtual Environment
+# =========================
+venv/
+.env/
+.envrc
+
+# =========================
+# Jupyter / Notebooks
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Logs & Monitoring
+# =========================
+logs.json
+*.log
+
+# =========================
+# ML Artifacts (Optional)
+# =========================
+artifacts/*.pkl
+artifacts/*.joblib
+artifacts/*.model
+
+# If using large files → consider DVC instead
+# artifacts/
+
+# =========================
+# MLflow
+# =========================
+mlruns/
+mlartifacts/
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# VS Code / IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Docker
+# =========================
+*.tar
+
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.*
+
+# =========================
+# Testing
+# =========================
+.pytest_cache/
+
+# =========================
+# Coverage
+# =========================
+.coverage
+htmlcov/
+
+# =========================
+# Temporary Files
+# =========================
+*.tmp
+*.swp
+*.bak
+
+# =========================
+# AWS / Credentials
+# =========================
+*.pem
+*.key
+*.crt
+
+# NEVER commit secrets
