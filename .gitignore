@@ -94,3 +94,7 @@ htmlcov/
 *.crt
 
 # NEVER commit secrets
+check_runs.py
+download_model.py
+register_model.py
+verify_model.py

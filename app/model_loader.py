@@ -1,24 +1,15 @@
 import os
-import mlflow
-import mlflow.pyfunc
-from config import (
-    MLFLOW_TRACKING_URI,
-    DAGSHUB_USERNAME,
-    DAGSHUB_TOKEN,
-    MODEL_NAME,
-    MODEL_STAGE
-)
+import pickle
 
-# 🔐 Set credentials
-os.environ["MLFLOW_TRACKING_USERNAME"] = DAGSHUB_USERNAME
-os.environ["MLFLOW_TRACKING_PASSWORD"] = DAGSHUB_TOKEN
+_model = None
 
-mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
-
-
-def load_model():
-    model_uri = f"models:/{MODEL_NAME}/{MODEL_STAGE}"
-    return mlflow.pyfunc.load_model(model_uri)
-
-
-model = load_model()
+def get_model():
+    global _model
+    if _model is None:
+        model_path = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "artifacts", "model", "model.pkl"
+        )
+        with open(model_path, 'rb') as f:
+            _model = pickle.load(f)
+    return _model

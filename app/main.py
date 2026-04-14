@@ -1,10 +1,15 @@
 from fastapi import FastAPI
 from app.schema import CustomerDataRaw
 from app.utils import preprocess
-from app.model_loader import model
+from app.model_loader import get_model
 from monitoring.logger import log_prediction
+from mangum import Mangum
 
 app = FastAPI()
+
+@app.get("/")
+def root():
+    return {"message": "Credit Risk API is running", "docs": "/docs"}
 
 @app.get("/health")
 def health():
@@ -13,10 +18,9 @@ def health():
 @app.post("/predict")
 def predict(data: CustomerDataRaw):
     df = preprocess(data.dict())
-    pred = model.predict(df)[0]
-
+    model = get_model()
+    pred = model.predict_proba(df)[0][1]  # probability of default (class 1)
     log_prediction(data.dict(), pred)
+    return {"probability_default": float(pred)}
 
-    return {
-        "probability_default": float(pred)
-    }
+handler = Mangum(app)
