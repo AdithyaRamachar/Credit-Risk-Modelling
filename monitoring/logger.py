@@ -1,12 +1,17 @@
 import json
+import os
 from datetime import datetime
 
-def log_prediction(input_data, prediction):
-    log = {
-        "timestamp": str(datetime.now()),
-        "input": input_data,
-        "prediction": float(prediction)
-    }
+LOG_PATH = "/tmp/logs.json"
 
-    with open("logs.json", "a") as f:
-        f.write(json.dumps(log) + "\n")
+def log_prediction(input_data: dict, prediction: float):
+    log_entry = {
+        "timestamp": datetime.utcnow().isoformat(),
+        "input": input_data,
+        "prediction": prediction
+    }
+    try:
+        with open(LOG_PATH, "a") as f:
+            f.write(json.dumps(log_entry) + "\n")
+    except Exception as e:
+        print(f"Logging failed: {e}")
